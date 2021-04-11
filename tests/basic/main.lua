@@ -45,7 +45,7 @@ print(Human.call.get_speaks(my_human))
 
 local many_leg = {
     inherit = {
-        Animal
+        Animal = Animal
     },
     public = {
         set_leg_number = function(self, leg_count)
@@ -53,6 +53,11 @@ local many_leg = {
         end,
         init = function(self, leg_count)
             Class.set(self, "leg_number", leg_count)
+        end,
+        get_leg_number = function(self)
+            print("many_leg get_leg")
+            -- if you override a base class function, you can only access the base class version if it is public
+            return Class.call(self.meta.parents.Animal, "get_leg_number")
         end
     }
 }
